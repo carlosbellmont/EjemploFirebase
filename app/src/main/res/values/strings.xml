@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">EjemploFirebase</string>
+    <string name="default_channel_id">"fcm_default_channel"</string>
+    <string name="default_channel_name">"fcm_default_channel"</string>
+
+    <string name="custom_topic">"misNotificaciones"</string>
+
 </resources>
