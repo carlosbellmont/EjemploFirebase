@@ -11,6 +11,7 @@ class MainService : FirebaseMessagingService(){
     }
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
+        // Gracias a super, mostramos la notificación
         super.onMessageReceived(remoteMessage)
         Log.d(TAG, "From: ${remoteMessage.from}")
 
@@ -20,7 +21,9 @@ class MainService : FirebaseMessagingService(){
 
         remoteMessage.notification?.body?.let {
             Log.d(TAG, "Cuerpo del mensaje: $it")
-            //sendNotification(it)
+            // Si descomentas está línea, asegurate de quitar también super.onMessageReceived(remoteMessage)
+            // ya que, en caso contrario, se lanzarían 2 notificaciones.
+            // sendNotification(it)
         }
     }
 
@@ -29,17 +32,9 @@ class MainService : FirebaseMessagingService(){
         Log.d(TAG, "token --> $token")
     }
 
-
-    // OPCIONAL : Utilizar solamente si quieres lanzar una notificaion personalizada
+    // OPCIONAL : Utilizar solamente si quieres lanzar una notificaion personalizada.
     /* private fun sendNotification(messageBody: String) {
         val intent = Intent(this, MainActivity::class.java)
-        //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        intent.putExtra("AAA", "aaaa")
-        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
-
-        val pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
-            PendingIntent.FLAG_ONE_SHOT)
-
         val channelId = getString(R.string.default_channel_id)
         val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
         val notificationBuilder = NotificationCompat.Builder(this, channelId)
